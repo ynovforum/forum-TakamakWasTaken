@@ -4,19 +4,26 @@ block main
         h2 #{question.title}
         ul
             li
-                a(href="/profile/" + question.user.id) @#{question.user.fullname}
+                a(href="/profile/" + question.user.id) @#{question.user.name}
             li Published #{question.createdAt}
         p #{question.content}
         if loggedInUser.id === question.user.id
-            a(href="/admin/questions/" + question.id) Edit
+            a(href="/forum/question/edit/" + question.id) Editer
     for comment in article.comments
         article
-            a(href="/profile/" + comment.user.id) @#{comment.user.fullname}
+            a(href="/profile/" + comment.user.id) @#{comment.user.name}
             p #{comment.content}
+            if loggedInUser.id === comment.user.id
+                a(href="/forum/question/edit/" + question.id) Editer
+            if loggedInUser.role === "ADMIN"
+                a(href="/forum/question/edit/" + question.id) Editer
+                a(href="/forum/admin/question/delete/" + question.id) Supprimer
     if loggedInUser
         form(method="post")
-            label(for="content") Comment
-            textarea(id="content", name="content", placeholder="Thanks for sharing...")
-            button(type="submit") Comment
+            label(for="content") Commenter
+            textarea(id="content", name="content", placeholder="Réagissez ici!")
+            button(type="submit") Commenter
+        if loggedInUser.role === "ADMIN"
+            a(href="/forum/admin/question/delete/" + question.id) Supprimer
     else
-        a(href="/signin") Sign in to comment
+        a(href="/forum/connexion") Connecte-toi pour commenter!

@@ -2,15 +2,11 @@ const router = require('express').Router();
 const passport = require('passport');
 const { Question, Comment, User } = require('../models');
 
-const bodyParser = require('body-parser');
-const session = require('express-session');
-const LocalStrategy = require('passport-local').Strategy;
-
 router.get('/', (req, res) => {
     Question
         .findAll({ include: [User] })
-        .then((articles) => {
-            res.render('site/home', { articles, loggedInUser: req.user });
+        .then((questions) => {
+            res.render('site/home', { questions, loggedInUser: req.user });
         });
 });
 
@@ -45,7 +41,6 @@ app.post('/inscription', (req, res) => {
     const password = req.body.password;
 
     if(name != null && email != null && password != null){
-
         if(User.count() > 0){
             User
                 .create({
@@ -61,7 +56,7 @@ app.post('/inscription', (req, res) => {
                     });
                 })
                 .catch((error) =>{
-                    res.render('/site/500', {error: error})
+                    res.render('/site/error/500', {error: error})
                 });
         }
         else{
@@ -75,11 +70,11 @@ app.post('/inscription', (req, res) => {
                 })
                 .then((user) => {
                     req.login(user, () => {
-                        res.redirect('/admin');
+                        res.redirect('/');
                     });
                 })
                 .catch((error) =>{
-                    res.render('/site/500', {error: error})
+                    res.render('/site/error/500', {error: error})
                 });
         }
     }
@@ -104,16 +99,16 @@ router.get('/question/:questionId', (req, res) => {
         });
 });
 
-router.post('/articles/:articleId', (req, res) => {
+router.post('/questions/:questionId', (req, res) => {
     const { content } = req.body;
     Comment
         .create({
             content,
             userId: req.user.id,
-            articleId: req.params.articleId
+            questionId: req.params.questionId
         })
         .then(() => {
-            res.redirect(`/articles/${req.params.articleId}`);
+            res.redirect(`/articles/${req.params.questionId}`);
         });
 });
 
@@ -125,28 +120,54 @@ router.get('forum/profile/:userId', (req, res) => {
         });
 });
 
-app.post('/forum/createreview', (req, res) => {
+router.get('/question/creer', (req, res) => {
+    res.render('website/questions/newQuestion', { loggedInUser: req.user });
+});
+
+router.post('/question/creer', (req, res) => {
     if(req.user){
-        const game = req.body.game;
-        const note = req.body.note;
-        const content = req.body.content;
-        const user = req.user;
+        const { title, description } = req.body;
         Question
             .create({
-                game: game,
-                note: note,
-                content: content,
+                title,
+                description,
                 userId: user.id
             })
             .then(() => {
                 res.redirect('/');
             })
             .catch((error) =>{
-                res.render('500', {error: error})
+                res.render('/site/error/500', {error: error})
             });
     }
     else{
-        res.redirect('/forum/connexion')
+        res.redirect('/connexion')
+    }
+});
+
+
+router.get('/question/edit/:questionId', (req, res) => {
+    res.render('website/questions/editQuestion', { loggedInUser: req.user });
+});
+
+router.post('/question/edit/:questionId', (req, res) => {
+    if(req.user){
+        const { title, description } = req.body;
+        Question
+            .findById(req.params.questionId)
+            .then((question) => {
+                question.updateAttributes({
+                    title,
+                    description
+                });
+                res.redirect('/');
+            })
+            .catch((error) =>{
+                res.render('/site/error/500', {error: error})
+            });
+    }
+    else{
+        res.redirect('/connexion')
     }
 });
 

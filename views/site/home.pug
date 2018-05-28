@@ -9,3 +9,9 @@ block main
                     a(href="/forum/profile/" + question.user.id) @#{question.user.name}
                 li Published #{question.createdAt}
             p #{question.content}
+            if loggedInUser.id === question.user.id
+                a(href="/forum/question/editer" + question.id) Editer
+    if loggedInUser
+        a(href="/forum/question/creer") Ajouter  une question
+    else
+        a(href="/forum/connexion") Connectez-vous pour poster une question!

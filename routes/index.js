@@ -39,14 +39,6 @@ app.get('/forum/question/:questionId/comment', (req, res) => {
     }
 });
 
-app.get('/', (req, res) => {
-    Review
-        .findAll({ include: [Vote, Comment, User] })
-        .then((reviews) => {
-            res.render('homepage', { reviews, user: req.user });
-        });
-});
-
 
 app.get('/forum/createreview', (req, res) => {
     if(req.user){
@@ -57,12 +49,3 @@ app.get('/forum/createreview', (req, res) => {
         res.render('createreview', { user: req.user })
     }
 });
-
-
-db
-    .sync()
-    .then(() =>{
-        app.listen(3000, () => {
-            console.log('Listening on port 3000');
-        });
-    });

@@ -10,31 +10,31 @@ router.get('/', (req, res) => {
         });
 });
 
-app.get('/deconnexion', function(req, res){
+router.get('/deconnexion', function(req, res){
     req.logout();
     res.redirect('/');
 });
 
-app.get('/connexion', (req, res) => {
+router.get('/connexion', (req, res) => {
     // Render the login page
     res.render('site/connexion');
 });
 
-app.post('/connexion',
+router.post('/connexion',
     // Authenticate user when the login form is submitted
     passport.authenticate('local', {
         // If authentication succeeded, redirect to the home page
-        successRedirect: '/',
+        successRedirect: '/forum',
         // If authentication failed, redirect to the login page
-        failureRedirect: '/connexion'
+        failureRedirect: '/forum/connexion'
     })
 );
 
-app.get('/inscription', (req, res) => {
+router.get('/inscription', (req, res) => {
     res.render('site/inscription');
 });
 
-app.post('/inscription', (req, res) => {
+router.post('/inscription', (req, res) => {
     const name = req.body.name;
     const bio = req.body.bio;
     const email = req.body.email;
@@ -52,7 +52,7 @@ app.post('/inscription', (req, res) => {
                 })
                 .then((user) => {
                     req.login(user, () => {
-                        res.redirect('/');
+                        res.redirect('/forum');
                     });
                 })
                 .catch((error) =>{
@@ -70,7 +70,7 @@ app.post('/inscription', (req, res) => {
                 })
                 .then((user) => {
                     req.login(user, () => {
-                        res.redirect('/');
+                        res.redirect('/forum');
                     });
                 })
                 .catch((error) =>{
@@ -83,7 +83,7 @@ app.post('/inscription', (req, res) => {
     }
 });
 
-router.get('/question/:questionId', (req, res) => {
+router.get('/question/details/:questionId', (req, res) => {
     Question
         .findById(req.params.articleId, {
             include: [
@@ -99,7 +99,7 @@ router.get('/question/:questionId', (req, res) => {
         });
 });
 
-router.post('/questions/:questionId', (req, res) => {
+router.post('/questions/details/:questionId', (req, res) => {
     const { content } = req.body;
     Comment
         .create({
@@ -112,16 +112,16 @@ router.post('/questions/:questionId', (req, res) => {
         });
 });
 
-router.get('forum/profile/:userId', (req, res) => {
+router.get('/profile/:userId', (req, res) => {
     User
         .findById(req.params.userId, { include: [Question] })
         .then((user) => {
-            res.render('website/profile', { user, loggedInUser: req.user });
+            res.render('site/profile', { user, loggedInUser: req.user });
         });
 });
 
 router.get('/question/creer', (req, res) => {
-    res.render('website/questions/newQuestion', { loggedInUser: req.user });
+    res.render('site/questions/newQuestion', { loggedInUser: req.user });
 });
 
 router.post('/question/creer', (req, res) => {
@@ -131,10 +131,10 @@ router.post('/question/creer', (req, res) => {
             .create({
                 title,
                 description,
-                userId: user.id
+                userId: req.user.id
             })
             .then(() => {
-                res.redirect('/');
+                res.redirect('/forum');
             })
             .catch((error) =>{
                 res.render('/site/error/500', {error: error})
@@ -147,7 +147,7 @@ router.post('/question/creer', (req, res) => {
 
 
 router.get('/question/edit/:questionId', (req, res) => {
-    res.render('website/questions/editQuestion', { loggedInUser: req.user });
+    res.render('site/questions/editQuestion', { loggedInUser: req.user });
 });
 
 router.post('/question/edit/:questionId', (req, res) => {

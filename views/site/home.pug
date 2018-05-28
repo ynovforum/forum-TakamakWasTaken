@@ -3,7 +3,7 @@ block main
     for question in questions
         article
             h2
-                a(href="/forum/question/" + question.id) #{question.title}
+                a(href="/forum/question/details/" + question.id) #{question.title}
             ul
                 li
                     a(href="/forum/profile/" + question.user.id) @#{question.user.name}

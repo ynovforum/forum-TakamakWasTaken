@@ -2,6 +2,7 @@ extends ../layout
 block main
     article
         h2 #{user.name}
+        p #{user.email}
         for question in user.questions
             p
                 a(href="/forum/question/" + question.id) #{question.title}

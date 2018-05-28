@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const website = require('./website');
+const website = require('./site');
 const admin = require('./admin');
 
 function isAuthenticated(req, res, next) {
@@ -19,7 +19,7 @@ module.exports = router;
 
 
 //add new comment to a question
-app.get('/forum/question/:questionId/comment', (req, res) => {
+router.get('/forum/question/:questionId/comment', (req, res) => {
 
     if(req.user){
         User
@@ -40,7 +40,7 @@ app.get('/forum/question/:questionId/comment', (req, res) => {
 });
 
 
-app.get('/forum/createreview', (req, res) => {
+router.get('/forum/createreview', (req, res) => {
     if(req.user){
         res.render('createReview', { user: req.user })
     }

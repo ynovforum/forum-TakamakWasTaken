@@ -3,9 +3,8 @@ block main
     for user in users
         article
             h2
-                a(href="/forum/question/" + question.id) #{question.title}
+                a(href="/forum/admin/users/edit/" + user.id) #{user.name}
             ul
                 li
-                    a(href="/forum/profile/" + question.user.id) @#{question.user.name}
-                li Published #{question.createdAt}
-            p #{question.content}
+                    p #{user.role}
+                li Créé le #{user.createdAt}

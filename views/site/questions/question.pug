@@ -1,0 +1,22 @@
+extends ../../layout
+block main
+    article
+        h2 #{question.title}
+        ul
+            li
+                a(href="/profile/" + question.user.id) @#{question.user.fullname}
+            li Published #{question.createdAt}
+        p #{question.content}
+        if loggedInUser.id === question.user.id
+            a(href="/admin/questions/" + question.id) Edit
+    for comment in article.comments
+        article
+            a(href="/profile/" + comment.user.id) @#{comment.user.fullname}
+            p #{comment.content}
+    if loggedInUser
+        form(method="post")
+            label(for="content") Comment
+            textarea(id="content", name="content", placeholder="Thanks for sharing...")
+            button(type="submit") Comment
+    else
+        a(href="/signin") Sign in to comment

@@ -1,0 +1,13 @@
+extends ../layout
+block main
+    form(method="post")
+        label(for="name") Nom
+        input(id="name", name="name", type="text", placeholder="John Doe")
+        label(for="email") Email
+        input(id="email", name="email", type="email", placeholder="john.doe@gmail.com")
+        label(for="password") Password
+        input(id="password", name="password", type="password", placeholder="******")
+        label(for="bio") Biographie
+        textarea(id="bio", name="bio", placeholder="Qui êtes-vous?")
+        button(type="submit") Sign up
+block footer

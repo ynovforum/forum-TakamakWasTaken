@@ -10,30 +10,35 @@ router.get('/', (req, res) => {
     Question
         .findAll({ include: [User] })
         .then((articles) => {
-            res.render('website/home', { articles, loggedInUser: req.user });
+            res.render('site/home', { articles, loggedInUser: req.user });
         });
 });
 
-router.get('/signin', (req, res) => {
-    if (req.user) {
-        return res.redirect('/');
-    }
-
-    res.render('website/signin');
+app.get('/deconnexion', function(req, res){
+    req.logout();
+    res.redirect('/');
 });
 
-router.post('/signin', passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/signin'
-}));
-
-r
-
-app.get('/forum/inscription', (req, res) => {
-    res.render('inscription');
+app.get('/connexion', (req, res) => {
+    // Render the login page
+    res.render('site/connexion');
 });
 
-app.post('/forum/inscription', (req, res) => {
+app.post('/connexion',
+    // Authenticate user when the login form is submitted
+    passport.authenticate('local', {
+        // If authentication succeeded, redirect to the home page
+        successRedirect: '/',
+        // If authentication failed, redirect to the login page
+        failureRedirect: '/connexion'
+    })
+);
+
+app.get('/inscription', (req, res) => {
+    res.render('site/inscription');
+});
+
+app.post('/inscription', (req, res) => {
     const name = req.body.name;
     const bio = req.body.bio;
     const email = req.body.email;
@@ -41,7 +46,7 @@ app.post('/forum/inscription', (req, res) => {
 
     if(name != null && email != null && password != null){
 
-        if(USER.count() > 0){
+        if(User.count() > 0){
             User
                 .create({
                     name: name,
@@ -56,7 +61,7 @@ app.post('/forum/inscription', (req, res) => {
                     });
                 })
                 .catch((error) =>{
-                    res.render('500', {error: error})
+                    res.render('/site/500', {error: error})
                 });
         }
         else{
@@ -74,7 +79,7 @@ app.post('/forum/inscription', (req, res) => {
                     });
                 })
                 .catch((error) =>{
-                    res.render('500', {error: error})
+                    res.render('/site/500', {error: error})
                 });
         }
     }
@@ -83,12 +88,7 @@ app.post('/forum/inscription', (req, res) => {
     }
 });
 
-router.get('/logout', (req, res) => {
-    req.logout();
-    res.redirect('/');
-});
-
-router.get('/articles/:articleId', (req, res) => {
+router.get('/question/:questionId', (req, res) => {
     Question
         .findById(req.params.articleId, {
             include: [
@@ -100,7 +100,7 @@ router.get('/articles/:articleId', (req, res) => {
             ]
         })
         .then((article) => {
-            res.render('website/article', { article, loggedInUser: req.user });
+            res.render('site/questions/question', { article, loggedInUser: req.user });
         });
 });
 
@@ -117,12 +117,37 @@ router.post('/articles/:articleId', (req, res) => {
         });
 });
 
-router.get('/profile/:userId', (req, res) => {
+router.get('forum/profile/:userId', (req, res) => {
     User
         .findById(req.params.userId, { include: [Question] })
         .then((user) => {
             res.render('website/profile', { user, loggedInUser: req.user });
         });
+});
+
+app.post('/forum/createreview', (req, res) => {
+    if(req.user){
+        const game = req.body.game;
+        const note = req.body.note;
+        const content = req.body.content;
+        const user = req.user;
+        Question
+            .create({
+                game: game,
+                note: note,
+                content: content,
+                userId: user.id
+            })
+            .then(() => {
+                res.redirect('/');
+            })
+            .catch((error) =>{
+                res.render('500', {error: error})
+            });
+    }
+    else{
+        res.redirect('/forum/connexion')
+    }
 });
 
 module.exports = router;

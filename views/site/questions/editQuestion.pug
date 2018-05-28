@@ -1,0 +1,11 @@
+extends ../../layout
+block main
+    h2 Profile utilisateur de #{user.name}
+    p Role: #{user.role}
+
+    form(method="post")
+        label(for="role") Role
+        select(id="role", name="role")
+            option(value="ADMIN") Admin
+            option(value="RANDOM") Utilisateur
+        button(type="submit") Modifier

@@ -58,50 +58,6 @@ app.get('/forum/createreview', (req, res) => {
     }
 });
 
-app.post('/forum/createreview', (req, res) => {
-    if(req.user){
-        const game = req.body.game;
-        const note = req.body.note;
-        const content = req.body.content;
-        const user = req.user;
-        Question
-            .create({
-                game: game,
-                note: note,
-                content: content,
-                userId: user.id
-            })
-            .then(() => {
-                res.redirect('/');
-            })
-            .catch((error) =>{
-                res.render('500', {error: error})
-            });
-    }
-    else{
-        res.redirect('/forum/connexion')
-    }
-});
-
-app.get('/forum/deconnexion', function(req, res){
-    req.logout();
-    res.redirect('/');
-});
-
-app.get('/forum/connexion', (req, res) => {
-    // Render the login page
-    res.render('connexion');
-});
-
-app.post('/forum/connexion',
-    // Authenticate user when the login form is submitted
-    passport.authenticate('local', {
-        // If authentication succeeded, redirect to the home page
-        successRedirect: '/',
-        // If authentication failed, redirect to the login page
-        failureRedirect: '/forum/connexion'
-    })
-);
 
 db
     .sync()

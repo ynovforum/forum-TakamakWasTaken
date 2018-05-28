@@ -1,6 +1,6 @@
 html
     head
-        title Node.js CMS
+        title Faux rhum
         link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Poppins:300,700")
         link(rel="stylesheet", href="/css/modern-normalize.css")
         link(rel="stylesheet", href="/css/styles.css")
@@ -8,7 +8,7 @@ html
         block header
             header
                 h1
-                    a(href="/") Node.js CMS
+                    a(href="/forum") Faux-Rhum
         main
             block main
         block footer
@@ -17,11 +17,13 @@ html
                     ul
                         if loggedInUser
                             li
-                                a(href="/admin/articles/new") New article
+                                a(href="/forum/admin/users") Liste des utilisateurs
                             li
-                                a(href="/logout") Log out
+                                a(href="/forum/deconnexion") Déconnexion
+                            li
+                                a(href="/forum/profile/" + loggedInUser.id + "/") Votre profile
                         else
                             li
-                                a(href="/signin") Sign in
+                                a(href="/forum/connexion") Connexion
                             li
-                                a(href="/signup") Sign up
+                                a(href="/forum/inscription") Inscription

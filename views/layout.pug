@@ -1,0 +1,27 @@
+html
+    head
+        title Node.js CMS
+        link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Poppins:300,700")
+        link(rel="stylesheet", href="/css/modern-normalize.css")
+        link(rel="stylesheet", href="/css/styles.css")
+    body
+        block header
+            header
+                h1
+                    a(href="/") Node.js CMS
+        main
+            block main
+        block footer
+            footer
+                nav
+                    ul
+                        if loggedInUser
+                            li
+                                a(href="/admin/articles/new") New article
+                            li
+                                a(href="/logout") Log out
+                        else
+                            li
+                                a(href="/signin") Sign in
+                            li
+                                a(href="/signup") Sign up

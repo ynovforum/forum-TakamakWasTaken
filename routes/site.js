@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 
 router.get('/deconnexion', function(req, res){
     req.logout();
-    res.redirect('/');
+    res.redirect('/forum');
 });
 
 router.get('/connexion', (req, res) => {
@@ -41,42 +41,46 @@ router.post('/inscription', (req, res) => {
     const password = req.body.password;
 
     if(name != null && email != null && password != null){
-        if(User.count() > 0){
-            User
-                .create({
-                    name: name,
-                    bio: bio,
-                    email: email,
-                    password: password,
-                    role: "RANDOM"
-                })
-                .then((user) => {
-                    req.login(user, () => {
-                        res.redirect('/forum');
-                    });
-                })
-                .catch((error) =>{
-                    res.render('/site/error/500', {error: error})
-                });
-        }
-        else{
-            User
-                .create({
-                    name: name,
-                    bio: bio,
-                    email: email,
-                    password: password,
-                    role: "ADMIN"
-                })
-                .then((user) => {
-                    req.login(user, () => {
-                        res.redirect('/forum');
-                    });
-                })
-                .catch((error) =>{
-                    res.render('/site/error/500', {error: error})
-                });
-        }
+        User
+            .count()
+            .then((count) => {
+                if(count > 0) {
+                    User
+                        .create({
+                            name: name,
+                            bio: bio,
+                            email: email,
+                            password: password,
+                            role: "RANDOM"
+                        })
+                        .then((user) => {
+                            req.login(user, () => {
+                                res.redirect('/forum');
+                            });
+                        })
+                        .catch((error) =>{
+                            res.render('/site/error/500', {error: error})
+                        });
+                }
+                else{
+                    User
+                        .create({
+                            name: name,
+                            bio: bio,
+                            email: email,
+                            password: password,
+                            role: "ADMIN"
+                        })
+                        .then((user) => {
+                            req.login(user, () => {
+                                res.redirect('/forum');
+                            });
+                        })
+                        .catch((error) =>{
+                            res.render('/site/error/500', {error: error})
+                        });
+                }
+            });
     }
     else{
         console.log("L'utilisateur n'a pas pu être créé.")
@@ -84,22 +88,27 @@ router.post('/inscription', (req, res) => {
 });
 
 router.get('/question/details/:questionId', (req, res) => {
-    Question
-        .findById(req.params.articleId, {
-            include: [
-                User,
-                {
-                    model: Comment,
-                    include: [User]
-                }
-            ]
-        })
-        .then((article) => {
-            res.render('site/questions/question', { article, loggedInUser: req.user });
-        });
+    if(req.user){
+        Question
+            .findById(req.params.questionId, {
+                include: [
+                    User,
+                    {
+                        model: Comment,
+                        include: [User]
+                    }
+                ]
+            })
+            .then((question) => {
+                res.render('site/questions/question', { question, loggedInUser: req.user });
+            });
+    }
+    else{
+        res.redirect('/forum/connexion');
+    }
 });
 
-router.post('/questions/details/:questionId', (req, res) => {
+router.post('/question/details/:questionId', (req, res) => {
     const { content } = req.body;
     Comment
         .create({
@@ -108,7 +117,7 @@ router.post('/questions/details/:questionId', (req, res) => {
             questionId: req.params.questionId
         })
         .then(() => {
-            res.redirect(`/articles/${req.params.questionId}`);
+            res.redirect("/forum/question/details/" + req.params.questionId);
         });
 });
 
@@ -141,13 +150,22 @@ router.post('/question/creer', (req, res) => {
             });
     }
     else{
-        res.redirect('/connexion')
+        res.redirect('/forum/connexion')
     }
 });
 
 
 router.get('/question/edit/:questionId', (req, res) => {
-    res.render('site/questions/editQuestion', { loggedInUser: req.user });
+    if(req.user){
+        Question
+            .findById(req.params.questionId)
+            .then((question) => {
+                res.render('site/questions/editQuestion', { question, loggedInUser: req.user });
+            });
+    }
+    else{
+        res.redirect("/forum");
+    }
 });
 
 router.post('/question/edit/:questionId', (req, res) => {
@@ -160,15 +178,64 @@ router.post('/question/edit/:questionId', (req, res) => {
                     title,
                     description
                 });
-                res.redirect('/');
+                setTimeout(function(){res.redirect("/forum/question/details/" + req.params.questionId);},1000);
             })
             .catch((error) =>{
                 res.render('/site/error/500', {error: error})
             });
     }
     else{
-        res.redirect('/connexion')
+        res.redirect('/forum/connexion')
     }
+});
+
+
+
+router.get('/question/:questionId/comment/edit/:commentId', (req, res) => {
+    if(req.user){
+        Comment
+            .findById(req.params.commentId)
+            .then((comment) => {
+                res.render('site/questions/editComment', { comment, loggedInUser: req.user });
+            });
+    }
+    else{
+        res.redirect("/forum");
+    }
+});
+
+router.post('/question/:questionId/comment/edit/:commentId', (req, res) => {
+    if(req.user){
+        const { content } = req.body;
+        Comment
+            .findById(req.params.commentId)
+            .then((comment) => {
+                comment.updateAttributes({
+                    content
+                })
+                    .then(() => {
+                        res.redirect("/forum/question/details/" + req.params.questionId);
+                    });
+            })
+            .catch((error) =>{
+                res.render('/site/error/500', {error: error})
+            });
+    }
+    else{
+        res.redirect('/forum/connexion')
+    }
+});
+
+router.get('/question/resolve/:questionId', (req, res) => {
+    now = new Date();
+    Question
+        .findById(req.params.questionId)
+        .then((question) => {
+            question.updateAttributes({ resolvedAt: new Date(now.getTime() + 2*60*60*1000) })
+                .then(() => {
+                    res.redirect('/forum/question/details/' + req.params.questionId);
+                });
+        })
 });
 
 module.exports = router;

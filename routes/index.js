@@ -13,39 +13,10 @@ function isAuthenticated(req, res, next) {
 router.use('/forum', website);
 router.use('/forum/admin', isAuthenticated, admin);
 
+router.get('/', (req, res) => {
+   res.redirect('/forum');
+});
+
 module.exports = router;
 
 
-
-
-//add new comment to a question
-router.get('/forum/question/:questionId/comment', (req, res) => {
-
-    if(req.user){
-        User
-            .findOne({where: {id: req.user.id}})
-            .then((user) => {
-                Comment
-                    .create({
-                        content: req.query.content,
-                        reviewId: req.params.reviewId,
-                        userId: req.user.id
-                    })
-                    .then(() => res.redirect('/'));
-            })
-    }
-    else{
-        res.redirect("/forum/connexion");
-    }
-});
-
-
-router.get('/forum/createreview', (req, res) => {
-    if(req.user){
-        res.render('createReview', { user: req.user })
-    }
-
-    else{
-        res.render('createreview', { user: req.user })
-    }
-});

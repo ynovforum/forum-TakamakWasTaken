@@ -4,20 +4,30 @@ block main
         h2 #{question.title}
         ul
             li
-                a(href="/profile/" + question.user.id) @#{question.user.name}
+                a(href="/forum/profile/" + question.user.id) #{question.user.name}
             li Published #{question.createdAt}
-        p #{question.content}
-        if loggedInUser.id === question.user.id
-            a(href="/forum/question/edit/" + question.id) Editer
-    for comment in article.comments
-        article
-            a(href="/profile/" + comment.user.id) @#{comment.user.name}
-            p #{comment.content}
-            if loggedInUser.id === comment.user.id
-                a(href="/forum/question/edit/" + question.id) Editer
+        p #{question.description}
+        if loggedInUser
             if loggedInUser.role === "ADMIN"
-                a(href="/forum/question/edit/" + question.id) Editer
-                a(href="/forum/admin/question/delete/" + question.id) Supprimer
+                a(href="/forum/question/edit/" + question.id) Éditer question
+                a(href="/forum/admin/question/delete/" + question.id) Supprimer question
+            else if loggedInUser.id === question.user.id
+                a(href="/forum/question/edit/" + question.id) Éditer
+
+            a(href="/forum/question/resolve/" + question.id) Question résolue
+
+    h2 Commentaires
+    for comment in question.comments
+        article
+            p #{comment.content}
+            a(href="/forum/profile/" + comment.user.id) Par #{comment.user.name}
+            if loggedInUser.role === "ADMIN"
+                a(href="/forum/question/" + question.id + "/comment/edit/" + comment.id) Éditer
+                a(href="/forum/admin/question/" + question.id + "/comment/delete/" + comment.id) Supprimer
+            else if loggedInUser.id === comment.user.id
+                a(href="/forum/question/" + question.id + "/comment/edit/" + comment.id) Éditer
+            if loggedInUser.id === question.user.id
+                a(href="/forum/question/" + question.id + "/resolve/" + comment.id)
     if loggedInUser
         form(method="post")
             label(for="content") Commenter

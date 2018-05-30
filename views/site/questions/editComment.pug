@@ -1,0 +1,6 @@
+extends ../../layout
+block main
+    form(method="post")
+        label(for="content") Content
+        textarea(id="content", name="content") #{comment.content}
+        button(type="submit") Éditer!

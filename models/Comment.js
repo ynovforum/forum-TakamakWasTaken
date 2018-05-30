@@ -2,8 +2,7 @@ const Sequelize = require('sequelize');
 
 function defineComment(database) {
     const Comment = database.define('comment', {
-        content: { type: Sequelize.TEXT },
-        is_resolving: { type: Sequelize.BOOLEAN}
+        content: { type: Sequelize.TEXT }
     });
     Comment.associate = ({ Question, User }) => {
         Comment.belongsTo(Question);

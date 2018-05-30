@@ -16,8 +16,9 @@ html
                 nav
                     ul
                         if loggedInUser
-                            li
-                                a(href="/forum/admin/users") Liste des utilisateurs
+                            if loggedInUser.role === "ADMIN"
+                                li
+                                    a(href="/forum/admin/users") Liste des utilisateurs
                             li
                                 a(href="/forum/deconnexion") Déconnexion
                             li

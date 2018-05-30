@@ -4,8 +4,7 @@ function defineQuestion(database) {
     const Question = database.define('question', {
         title: { type: Sequelize.STRING },
         description: { type: Sequelize.TEXT },
-        resolved_at: { type: Sequelize.DATE },
-        resolving_question: { type: Sequelize.INTEGER}
+        resolvedAt: { type: Sequelize.DATE }
     });
     Question.associate = ({ User, Comment }) => {
         Question.belongsTo(User);

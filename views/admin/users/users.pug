@@ -3,8 +3,9 @@ block main
     for user in users
         article
             h2
-                a(href="/forum/admin/users/edit/" + user.id) #{user.name}
+                a(href="/forum/profile/" + user.id) #{user.name}
             ul
                 li
                     p #{user.role}
                 li Créé le #{user.createdAt}
+                a(href="/forum/admin/users/edit/" + user.id) Éditer

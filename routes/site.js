@@ -1,13 +1,7 @@
 const router = require('express').Router();
 const passport = require('passport');
 const { Question, Comment, User } = require('../models');
-
-function prettyDate(element){
-
-    let date = new Date(element.createdAt);
-    element["prettyDate"] = date.getDate() + "/" + parseInt(date.getMonth()+1) + "/" + date.getFullYear();
-    return element;
-}
+const prettyDate = require('./prettyDate');
 
 router.get('/', (req, res) => {
     Question

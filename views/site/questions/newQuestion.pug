@@ -1,8 +1,10 @@
 extends ../../layout
 block main
-    form(method="post")
-        label(for="title") Title
-        input(id="title", name="title", type="text", placeholder="Breaking news in the IT world")
-        label(for="description") Description
-        textarea(id="description", name="description", placeholder="A new technology, recently introduced by...")
-        button(type="submit") Créer!
+    div.container
+        h1.addQUestionTitle Posez votre Question!
+        form(method="post").verticalFlow.addQuestionForm
+            label(for="title") Question
+            input(id="title", name="title", type="text", placeholder="Breaking news in the IT world")
+            label(for="description") Description
+            textarea(id="description", name="description", placeholder="A new technology, recently introduced by...")
+            button(type="submit").formButton.blueButton Envoyer

@@ -1,11 +1,16 @@
 extends ../../layout
 block main
-    for user in users
-        article
-            h2
-                a(href="/forum/profile/" + user.id) #{user.name}
-            ul
-                li
-                    p #{user.role}
-                li Créé le #{user.createdAt}
-                a(href="/forum/admin/users/edit/" + user.id) Éditer
+    div.container
+        div.listUsers
+            if users.length === 0
+                p Pas d'utilisateurs!
+            else
+                for user in users
+                    article
+                        ul.horizontalFlow
+                            li
+                                a(href="/forum/profile/" + user.id) #{user.name}
+                            li
+                                p #{user.role}
+                            li Créé le #{user.prettyDate}
+                            a(href="/forum/admin/users/edit/" + user.id) Éditer

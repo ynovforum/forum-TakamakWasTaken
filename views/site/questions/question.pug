@@ -23,7 +23,8 @@ block main
                                 else if loggedInUser.id === question.user.id
                                     a(href="/forum/question/edit/" + question.id) Éditer
 
-                                a(href="/forum/question/resolve/" + question.id) Marquer comme résolue
+                                if !question.resolvedAt
+                                    a(href="/forum/question/resolve/" + question.id) Marquer comme résolue
 
         div.commentSection
             h2 #{question.comments.length} Commentaires
@@ -46,7 +47,7 @@ block main
                     form(method="post").verticalFlow
                         label(for="content") Postez un commentaire
                         textarea(id="content", name="content", placeholder="Réagissez ici")
-                        button(type="submit") Commenter
+                        button.formButton.greenButton(type="submit") Commenter
 
             else
                 div.accessComments

@@ -1,0 +1,72 @@
+.containerProfil{
+  text-align: left;
+}
+
+.detailsProfil{
+  padding-left:4%;
+  padding-right:4%;
+}
+
+.profil{
+  background-color: white;
+  border:1px solid $miniBorderColor;
+  border-radius: 5px;
+  h1{
+    font-weight:500;
+  }
+
+  ul{
+    padding-left: 0;
+    li button{
+      margin-left: 2em;
+    }
+    & li .name, & li .email, & li .password{
+      width:50%;
+    }
+    & li .description{
+      width:100%;
+      min-height: 100px;
+    }
+  }
+}
+
+.legend{
+  margin-top:0;
+  margin-bottom:10px;
+  font-weight: bold;
+  color: $smallFontColor;
+}
+
+.infoProfil{
+  margin-top:0;
+  margin-bottom: 20px;
+  border:1px solid $miniBorderColor;
+  border-radius: 5px;
+  padding:10px;
+}
+
+.questionsProfil{
+  padding-bottom:2em;
+  margin-top:2%;
+  margin-bottom:2em;
+  h1{
+
+    padding-left:4%;
+    padding-right:4%;
+  }
+  div {
+    border-top:1px solid $miniBorderColor;
+    padding: 2% 4%;
+
+    a{
+      color:black;
+      font-weight:bold;
+    }
+    span{
+      float:right;
+    }
+    &:last-of-type{
+      border-bottom:1px solid $miniBorderColor;
+    }
+  }
+}

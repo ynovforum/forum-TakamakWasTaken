@@ -1,0 +1,29 @@
+.addQUestionTitle{
+  font-weight: 500;
+  text-align: left;
+}
+.addQuestionForm{
+  background-color: white;
+  border-radius: 5px;
+  border:1px solid $miniBorderColor;
+  text-align: left;
+  padding: 2% 4%;
+  & label{
+    margin-bottom: 1%;
+  }
+  & input, & textarea{
+    border:solid 1px $miniBorderColor;
+    margin-bottom: 2%;
+    border-radius: 5px;
+    padding:10px;
+  }
+  & input {
+    max-width: 50%;
+  }
+  & textarea{
+    min-height:100px;
+  }
+  & button{
+    margin-left: auto;
+  }
+}

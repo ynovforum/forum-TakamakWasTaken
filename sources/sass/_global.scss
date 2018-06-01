@@ -55,6 +55,7 @@ a{
   line-height: $linkLineHeight;
   color: $linkColor;
   text-decoration: none;
+
   &:hover{
       color: $linkHoverColor;
   }
@@ -80,6 +81,15 @@ button{
     }
   }
 }
+
+.formButton{
+  max-width:150px;
+  padding: $paddingButtons;
+  color:white;
+  border-radius: 5px;
+  border:unset;
+}
+
 
 .horizontalFlow{
   display: flex;

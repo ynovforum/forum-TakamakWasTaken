@@ -98,24 +98,9 @@ li.detailsAuteurDate{
         min-height: 70px;
         max-width: 60%;
       }
-      button{
-        max-width:150px;
-        background-color: $normalGreenButton;
-        padding: $paddingButtons;
-        color:white;
-        border-radius: 5px;
-        border:unset;
-        &:hover{
-          background-color: $hoverGreenButton;
-        }
-        &:active{
-          background-color: $clickGreenButton;
-        }
-      }
     }
   }
   & .accessComments{
     text-align: center;
   }
-
 }

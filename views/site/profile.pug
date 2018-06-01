@@ -1,13 +1,35 @@
 extends ../layout
 block main
-    article
-        h2 #{user.name}
-        p #{user.email}
-        p #{user.bio}
-        if user.role === "ADMIN"
-            p Role : Admin
-        else
-            p Role : Utilisateur
-    for question in user.questions
-            p
-                a(href="/forum/question/details/" + question.id) #{question.title}
+    div.container.containerProfil
+        div.detailsProfil.profil
+            h1 Mon Profil
+            ul
+                li
+                    p.legend Nom
+                    input(type="text" value= user.name).infoProfil.name
+                li
+                    p.legend Description
+                    textarea(name="descritpion").infoProfil.description #{user.bio}
+                li
+                    p.legend Email
+                    input(type="email" value= user.email).infoProfil.email
+                    button.formButton.greenButton change
+                li
+                    p.legend Password
+                    input(type="password" value=user.password).infoProfil.password
+                    button.formButton.greenButton change
+                li
+                    if user.role === "ADMIN"
+                        p.roleProfil  Role : Admin
+                    else
+                        p.roleProfil  Role : Utilisateur
+        div.questionsProfil.profil
+            h1 Questions
+
+            for question in user.questions
+                div
+                    a(href="/forum/question/details/" + question.id) #{question.title}
+                    if question.resolvedAt
+                        span.resolved Résolue
+                    else
+                        span.notResolved Non résolue

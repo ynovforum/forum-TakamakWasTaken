@@ -1,11 +1,15 @@
 const router = require('express').Router();
 const { User, Question, Comment } = require('../models');
+const prettyDate = require('./prettyDate');
 
 
 router.get('/users', (req, res) => {
     User
         .findAll()
         .then((users) => {
+            for(let i=0; i< users.length; i++){
+                users[i]["prettyDate"] = prettyDate(users[i]);
+            }
             res.render('admin/users/users', { users, loggedInUser: req.user });
         });
 });

@@ -2,11 +2,11 @@ const router = require('express').Router();
 const passport = require('passport');
 const { Question, Comment, User } = require('../models');
 
-function prettyDate(question){
+function prettyDate(element){
 
-    let date = new Date(question.createdAt);
-    question["prettyDate"] = date.getDate() + "/" + parseInt(date.getMonth()+1) + "/" + date.getFullYear();
-    return question;
+    let date = new Date(element.createdAt);
+    element["prettyDate"] = date.getDate() + "/" + parseInt(date.getMonth()+1) + "/" + date.getFullYear();
+    return element;
 }
 
 router.get('/', (req, res) => {
@@ -98,37 +98,42 @@ router.post('/inscription', (req, res) => {
 });
 
 router.get('/question/details/:questionId', (req, res) => {
-    if(req.user){
-        Question
-            .findById(req.params.questionId, {
-                include: [
-                    User,
-                    {
-                        model: Comment,
-                        include: [User]
-                    }
-                ]
-            })
-            .then((question) => {
-                res.render('site/questions/question', { question, loggedInUser: req.user });
-            });
-    }
-    else{
-        res.redirect('/forum/connexion');
-    }
+    Question
+        .findById(req.params.questionId, {
+            include: [
+                User,
+                {
+                    model: Comment,
+                    include: [User]
+                }
+            ]
+        })
+        .then((question) => {
+            question = prettyDate(question);
+            for(let i=0; i < question.comments.length; i++){
+                question.comments[i] = prettyDate(question.comments[i]);
+            }
+            res.render('site/questions/question', { question, loggedInUser: req.user });
+        });
+
 });
 
 router.post('/question/details/:questionId', (req, res) => {
     const { content } = req.body;
-    Comment
-        .create({
-            content,
-            userId: req.user.id,
-            questionId: req.params.questionId
-        })
-        .then(() => {
-            res.redirect("/forum/question/details/" + req.params.questionId);
-        });
+    if(content.length < 1){
+    }
+    else{
+        Comment
+            .create({
+                content,
+                userId: req.user.id,
+                questionId: req.params.questionId
+            })
+            .then(() => {
+                res.redirect("/forum/question/details/" + req.params.questionId);
+            });
+    }
+
 });
 
 router.get('/profile/:userId', (req, res) => {
@@ -199,6 +204,23 @@ router.post('/question/edit/:questionId', (req, res) => {
     }
 });
 
+router.get('/question/resolve/:questionId', (req, res) => {
+    if(req.user){
+        Question
+            .findById(req.params.questionId)
+            .then((question) => {
+                question
+                    .updateAttributes({ resolvedAt: new Date() })
+                    .then(() => {
+                    res.redirect('/forum/question/details/' + req.params.questionId);
+                })
+            });
+    }
+    else{
+        res.redirect("/forum");
+    }
+});
+
 
 
 router.get('/question/:questionId/comment/edit/:commentId', (req, res) => {
@@ -236,16 +258,5 @@ router.post('/question/:questionId/comment/edit/:commentId', (req, res) => {
     }
 });
 
-router.get('/question/resolve/:questionId', (req, res) => {
-    now = new Date();
-    Question
-        .findById(req.params.questionId)
-        .then((question) => {
-            question.updateAttributes({ resolvedAt: new Date(now.getTime() + 2*60*60*1000) })
-                .then(() => {
-                    res.redirect('/forum/question/details/' + req.params.questionId);
-                });
-        })
-});
 
 module.exports = router;

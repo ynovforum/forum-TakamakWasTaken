@@ -16,19 +16,16 @@ html
                             if loggedInUser.role === "ADMIN"
                                 li
                                     a(href="/forum/admin/users") Liste des utilisateurs
-                        li
-                            a(href="/forum/deconnexion") Déconnexion
+                            li
+                                a(href="/forum/deconnexion") Déconnexion
+                        else
+                            li
+                                a(href="/forum/connexion") Connexion
+                            li
+                                a(href="/forum/connexion") Inscription
 
 
         main
             block main
         block footer
             footer
-                nav
-                    ul
-                        if loggedInUser
-                        else
-                            li
-                                a(href="/forum/connexion") Connexion
-                            li
-                                a(href="/forum/inscription") Inscription

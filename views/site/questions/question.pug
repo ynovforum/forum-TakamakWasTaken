@@ -1,39 +1,53 @@
 extends ../../layout
 block main
-    article
-        h2 #{question.title}
-        ul
-            li
-                a(href="/forum/profile/" + question.user.id) #{question.user.name}
-            li Published #{question.createdAt}
-        p #{question.description}
-        if loggedInUser
-            if loggedInUser.role === "ADMIN"
-                a(href="/forum/question/edit/" + question.id) Éditer question
-                a(href="/forum/admin/question/delete/" + question.id) Supprimer question
-            else if loggedInUser.id === question.user.id
-                a(href="/forum/question/edit/" + question.id) Éditer
+    div.container.questionContainer
+        div.questionDetails
+            article
+                h1 #{question.title}
+                ul
+                    li.detailsAuteurDate
+                        a(href="/forum/profile/" + question.user.id) #{question.user.name}
+                        span | #{question.prettyDate}
+                    li.detailsDescription
+                        p #{question.description}
+                    li.detailsResolue.horizontalFlow
+                        if question.resolvedAt
+                            span.resolved Résolue
+                        else
+                            span.notResolved Non résolue
+                        div.detailsFonctionsAdmin
+                            if loggedInUser
+                                if loggedInUser.role === "ADMIN"
+                                    a(href="/forum/question/edit/" + question.id) Éditer
+                                    a(href="/forum/admin/question/delete/" + question.id) Supprimer
+                                else if loggedInUser.id === question.user.id
+                                    a(href="/forum/question/edit/" + question.id) Éditer
 
-            a(href="/forum/question/resolve/" + question.id) Question résolue
+                                a(href="/forum/question/resolve/" + question.id) Marquer comme résolue
 
-    h2 Commentaires
-    for comment in question.comments
-        article
-            p #{comment.content}
-            a(href="/forum/profile/" + comment.user.id) Par #{comment.user.name}
-            if loggedInUser.role === "ADMIN"
-                a(href="/forum/question/" + question.id + "/comment/edit/" + comment.id) Éditer
-                a(href="/forum/admin/question/" + question.id + "/comment/delete/" + comment.id) Supprimer
-            else if loggedInUser.id === comment.user.id
-                a(href="/forum/question/" + question.id + "/comment/edit/" + comment.id) Éditer
-            if loggedInUser.id === question.user.id
-                a(href="/forum/question/" + question.id + "/resolve/" + comment.id)
-    if loggedInUser
-        form(method="post")
-            label(for="content") Commenter
-            textarea(id="content", name="content", placeholder="Réagissez ici!")
-            button(type="submit") Commenter
-        if loggedInUser.role === "ADMIN"
-            a(href="/forum/admin/question/delete/" + question.id) Supprimer
-    else
-        a(href="/forum/connexion") Connecte-toi pour commenter!
+        div.commentSection
+            h2 #{question.comments.length} Commentaires
+            if loggedInUser
+                for comment in question.comments
+                    article
+                        ul
+                            li.detailsAuteurDate
+                                a(href="/forum/profile/" + comment.user.id) #{comment.user.name}
+                                span | #{comment.prettyDate}
+                            li
+                                p #{comment.content}
+                            li.commentManagementLink
+                                if loggedInUser.role === "ADMIN"
+                                    a(href="/forum/question/" + question.id + "/comment/edit/" + comment.id) Éditer
+                                    a(href="/forum/admin/question/" + question.id + "/comment/delete/" + comment.id) Supprimer
+                                else if loggedInUser.id === comment.user.id
+                                    a(href="/forum/question/" + question.id + "/comment/edit/" + comment.id) Éditer
+                div.commentAnswer
+                    form(method="post").verticalFlow
+                        label(for="content") Postez un commentaire
+                        textarea(id="content", name="content", placeholder="Réagissez ici")
+                        button(type="submit") Commenter
+
+            else
+                div.accessComments
+                    a(href="/forum/connexion") Connectez-vous pour accéder aux commentaires !

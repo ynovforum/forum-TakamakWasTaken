@@ -1,0 +1,121 @@
+@import '../styleguide';
+
+.questionContainer{
+  border:1px solid $miniBorderColor;
+  border-radius: 5px;
+  background-color: white;
+
+}
+
+.questionDetails{
+  padding-left: 2%;
+  padding-right: 2%;
+  article{
+    h1{
+      text-align: left;
+      font-weight:500;
+      margin-bottom: 0;
+    }
+    ul{
+      margin-top: 0;
+      padding-left:0;
+      text-align: left;
+      li{
+        &.detailsAuteurDate{
+          font-weight: bold;
+        }
+
+        &.detailsDescription p{
+          color:black;
+        }
+        &.detailsResolue .detailsFonctionsAdmin{
+          height:fit-content;
+          margin: auto 0 auto auto;
+          a{
+            margin-left:20px;
+          }
+        }
+      }
+    }
+  }
+}
+
+li.detailsAuteurDate{
+  color: $smallFontColor;
+  a{
+    margin-right:10px;
+    color: inherit;
+  }
+}
+
+.commentSection{
+  text-align: left;
+  h2{
+    padding-left: 2%;
+    padding-right: 2%;
+    text-align: left;
+    margin-top: 2em;
+  }
+  article{
+    padding-left: 2%;
+    padding-right: 2%;
+    ul{
+      padding-left:0;
+      li{
+        p{
+          color: black;
+          max-width: 85%;
+        }
+        &.commentManagementLink{
+          text-align: right;
+          a{
+            margin-left: 20px;
+          }
+        }
+      }
+    }
+    &:first-of-type{
+      border-top:1px solid $miniBorderColor;
+      padding-top:2em;
+        ul{
+          margin-top:0;
+        }
+    }
+
+    &:last-of-type{
+      border-bottom:1px solid $miniBorderColor;
+    }
+  }
+  & .commentAnswer{
+    padding: 2em 2% 0;
+    form{
+      label{
+        color:$smallFontColor;
+        font-weight: bold;
+      }
+      textarea{
+        margin: 1em 0;
+        min-height: 70px;
+        max-width: 60%;
+      }
+      button{
+        max-width:150px;
+        background-color: $normalGreenButton;
+        padding: $paddingButtons;
+        color:white;
+        border-radius: 5px;
+        border:unset;
+        &:hover{
+          background-color: $hoverGreenButton;
+        }
+        &:active{
+          background-color: $clickGreenButton;
+        }
+      }
+    }
+  }
+  & .accessComments{
+    text-align: center;
+  }
+
+}

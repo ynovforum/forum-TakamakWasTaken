@@ -1,6 +1,6 @@
 extends ../layout
 block main
-    div.container.containerHome
+    div.container
         div.addQuestionBlock
             if loggedInUser
                 a(href="/forum/question/creer") Ajouter  une question
@@ -16,17 +16,21 @@ block main
                 span.thirdSpan Auteur
                 span.fourthSpan Résolue
             div.listContent
-                for question in questions
-                    article
-                        ul
-                            li.questionTitle
-                                a(href="/forum/question/details/" + question.id) #{question.title}
+                if questions.length === 0
+                    p Pas encore de question!
+                else
 
-                            li.questionDate #{question.prettyDate}
-                            li.questionAuthor
-                                a(href="/forum/profile/" + question.user.id) #{question.user.name}
-                            li.questionResolved
-                                if question.resolvedAt
-                                    span.resolved OUI
-                                else
-                                    span.notResolved NON
+                    for question in questions
+                        article
+                            ul
+                                li.questionTitle
+                                    a(href="/forum/question/details/" + question.id) #{question.title}
+
+                                li.questionDate #{question.prettyDate}
+                                li.questionAuthor
+                                    a(href="/forum/profile/" + question.user.id) #{question.user.name}
+                                li.questionResolved
+                                    if question.resolvedAt
+                                        span.resolved OUI
+                                    else
+                                        span.notResolved NON

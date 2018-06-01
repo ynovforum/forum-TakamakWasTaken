@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Question } = require('../models');
+const { User, Question, Comment } = require('../models');
 
 
 router.get('/users', (req, res) => {
@@ -30,21 +30,26 @@ router.post('/users/edit/:userId', (req, res) => {
 });
 
 router.get('/question/delete/:questionId', (req, res) => {
-    Question
-        .findById(req.params.questionId)
-        .delete(question)
-        .then(() => {
-            res.redirect('/forum');
-        })
+
+    Comment
+        .destroy({ where: { questionId: req.params.questionId } })
+        .then(() =>{
+            Question
+                .destroy({ where: { id: req.params.questionId } })
+                .then(() => {
+                    res.redirect("/forum");
+                })
+        });
+
+
 });
 
-router.get('question/:questionId/comment/delete/:commentId', (req, res) => {
-   Comment
-       .findById(req.params.commentId)
-       .delete(question)
-       .then(() => {
-            res.redirect('/forum/question/' + req.params.questionId);
-       })
+router.get('/question/:questionId/comment/delete/:commentId', (req, res) => {
+    Comment
+        .destroy({where: {id: req.params.commentId }})
+        .then(() => {
+            res.redirect("/forum/question/details/" + req.params.questionId);
+        })
 });
 
 module.exports = router;

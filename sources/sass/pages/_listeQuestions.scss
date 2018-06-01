@@ -1,11 +1,7 @@
 @import '../styleguide';
 
-.containerHome{
-  width:60%;
-}
-
 .addQuestionBlock{
-  margin:1em 0;
+  margin-bottom:1em;
   a{
     text-decoration: none;
     color: white;
@@ -34,6 +30,7 @@
 }
 
 .listQuestions{
+  border-radius: 0 0 5px 5px;
   background-color: white;
   border: solid $miniBorderColor;
   border-width: 0 1px;
@@ -64,6 +61,15 @@
 }
 
 .listContent{
+   border-radius: 0 0 5px 5px;
+  p{
+    border-bottom: solid 1px $miniBorderColor;
+    border-radius: 0 0 5px 5px;
+    padding-bottom: 1em;
+    text-align: left;
+    padding-left:4%;
+    margin-bottom: 0;
+  }
    article{
      display: flex;
      padding-left:4%;
@@ -107,17 +113,6 @@
          text-align: center;
          height: fit-content;
          margin: auto;
-         span{
-            color: white;
-            padding: $paddingButtons;
-            border-radius:5px;
-         }
-         & .resolved{
-            background-color: $normalGreenButton;
-         }
-         & .notResolved{
-            background-color: $normalBlueButton;
-         }
        }
      }
    }
@@ -125,6 +120,7 @@
      border-top-width:0px;
    }
    article:last-of-type{
+     border-radius: 0 0 5px 5px;
      border-bottom-width:1px;
    }
  }

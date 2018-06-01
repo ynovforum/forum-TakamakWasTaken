@@ -54,6 +54,7 @@ a{
   font-size: $linkFontSize;
   line-height: $linkLineHeight;
   color: $linkColor;
+  text-decoration: none;
   &:hover{
       color: $linkHoverColor;
   }
@@ -91,5 +92,20 @@ button{
 .container{
   margin-left: auto;
   margin-right: auto;
+  width:75%;
+  margin-top: 2em;
 }
 
+//indication question résolue.
+span.resolved{
+  color: white;
+  padding: $paddingButtons;
+  border-radius:5px;
+  background-color: $normalGreenButton;
+}
+span.notResolved{
+  color: white;
+  padding: $paddingButtons;
+  border-radius:5px;
+  background-color: $normalBlueButton;
+}

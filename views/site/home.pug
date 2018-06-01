@@ -1,15 +1,32 @@
 extends ../layout
 block main
-    for question in questions
-        article
-            h2
-                a(href="/forum/question/details/" + question.id) #{question.title}
-            ul
-                li Published #{question.createdAt}
-                li
-                    a(href="/forum/profile/" + question.user.id) Par #{question.user.name}
-            p #{question.content}
-    if loggedInUser
-        a(href="/forum/question/creer") Ajouter  une question
-    else
-        a(href="/forum/connexion") Connectez-vous pour poster une question!
+    div.container.containerHome
+        div.addQuestionBlock
+            if loggedInUser
+                a(href="/forum/question/creer") Ajouter  une question
+            else
+                a(href="/forum/connexion") Connectez-vous pour poster une question!
+        div.listTitle.horizontalFlow
+            h2 Toutes les Questions
+            span | #{questions.length} Questions
+        div.listQuestions
+            div.legend
+                span.firstSpan Question
+                span.secondSpan Publiée le
+                span.thirdSpan Auteur
+                span.fourthSpan Résolue
+            div.listContent
+                for question in questions
+                    article
+                        ul
+                            li.questionTitle
+                                a(href="/forum/question/details/" + question.id) #{question.title}
+
+                            li.questionDate #{question.prettyDate}
+                            li.questionAuthor
+                                a(href="/forum/profile/" + question.user.id) #{question.user.name}
+                            li.questionResolved
+                                if question.resolvedAt
+                                    span.resolved OUI
+                                else
+                                    span.notResolved NON

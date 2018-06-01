@@ -1,0 +1,41 @@
+@import 'styleguide';
+
+.navBar{
+  background-color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  ul{
+    margin:unset;
+    li{
+      height:fit-content;
+      margin:auto 10px;
+      a{
+        text-decoration: none;
+        color: $navBarColor;
+      }
+    }
+    li:first-child{
+      margin-left:0;
+    }
+  }
+}
+
+.logoHomePage{
+
+  background-color: $normalBlueButton;
+  height: 50px;
+  width: 50px;
+  display: block;
+  border-radius: 5px;
+  div{
+    background-image: url("/img/avionPapier.png");
+    background-size: contain;
+    height: 30px;
+    width: 30px;
+    margin-left:auto;
+    margin-right:auto;
+    transform: translateY(33%);
+  }
+
+
+}

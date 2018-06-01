@@ -1,0 +1,110 @@
+@import '../styleguide';
+
+.containerConnexion{
+  margin-top:10%;
+  min-width:500px;
+  width:33%;
+}
+
+
+.connexionBlock{
+  width:100%;
+  position: relative;
+  border: 1px solid $miniBorderColor;
+  border-radius: 5px;
+
+  h2{
+    background-color: $nearWhiteBckgrnd;
+    margin: 0;
+    padding-top: 40px;
+    padding-bottom: 20px;
+  }
+  & .iconPaperFly{
+    background-color: $lightBlue;
+    border-radius: 50%;
+    width: 50px;
+    height:50px;
+    position: absolute;
+    top: 0;
+    left:50%;
+    transform: translate(-50%, -50%);
+
+      img{
+        width:50%;
+        height:auto;
+        transform: translateY(50%);
+      }
+  }
+}
+
+.connectionForm{
+  background-color: white;
+  margin:auto;
+  form{
+    text-align: left;
+    padding: 25px;
+    button{
+      border:unset;
+      border-radius: 5px;
+      text-align: center;
+      color: $buttonColor;
+      padding: 15px;
+    }
+
+    label{
+      color:$smallFontColor;
+    }
+
+    input{
+      margin-bottom:25px;
+      margin-top: 15px;
+      border: unset;
+      background-color: $nearWhiteBckgrnd;
+      padding: 15px;
+      border: 1px solid $miniBorderColor;
+      border-radius: 5px;
+    }
+  }
+
+  span{
+    &::before{
+      content: '';
+      border-bottom: 1px, solid, $miniBorderColor;
+      position: absolute;
+      width: 25%;
+      left:0;
+      transform: translateY(8px);
+    }
+    &::after{
+      content: '';
+      border-bottom: 1px, solid, $miniBorderColor;
+      position: absolute;
+      width: 25%;
+      right:0;
+      transform: translateY(8px);
+    }
+  }
+}
+
+.socialNetworks{
+  padding-bottom: 30px;
+  span{
+    margin-bottom:40px;
+    color: $smallFontColor;
+    font-weight: 500;
+  }
+  & .logoNetwork{
+    width: 25%;
+  }
+}
+
+.footerConnexion{
+  display: flex;
+  a{
+    text-decoration: none;
+    color: $smallFontColor;
+  }
+  & .forgotPass{
+    margin-left:auto;
+  }
+}

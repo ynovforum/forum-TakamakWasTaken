@@ -1,9 +1,30 @@
 extends ../layout
 block main
-    form(method="post")
-        label(for="email") Email
-        input(id="email", name="username", type="email", placeholder="john.doe@gmail.com")
-        label(for="password") Password
-        input(id="password", name="password", type="password", placeholder="******")
-        button(type="submit") Connexion
+
+    div.container.containerConnexion
+        div.connexionBlock
+            div.iconPaperFly
+                img(src="localhost:3000/img/avionPapier.png")
+            h2 Welcome back! Please login.
+            div.connectionForm
+                form(method="post").verticalFlow
+                    label(for="email") Sign in with your e-mail address
+                    input(id="email", name="username", type="email", placeholder="john.doe@gmail.com")
+                    label(for="password") Password
+                    input(id="password", name="password", type="password", placeholder="******")
+                    button(type="submit").greenButton Sign in to Dashboard
+                div.socialNetworks.verticalFlow
+                    span Login via social networks
+                    div.horizontalFlow
+                        div.logoNetwork
+                            img(src="localhost:3000/img/logoTwitter.png")
+                        div.logoNetwork
+                            img(src="localhost:3000/img/Facebook.png")
+                        div.logoNetwork
+                            img(src="localhost:3000/img/Pinterest.png")
+                        div.logoNetwork
+                            img(src="localhost:3000/img/Dribbble.png")
+        div.footerConnexion
+            a(href="/forum/inscription") Don't have an account yet? Get Started
+            a(href="/forum/connexion").forgotPass Forgot Password?
 block footer

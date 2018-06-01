@@ -1,0 +1,95 @@
+@import 'styleguide';
+
+body{
+  text-align: center;
+  background-color: $bodyColor;
+  font-family:'Source Sans Pro', sans-serif;
+  margin:0;
+}
+
+main{
+}
+
+li{
+  list-style: none;
+}
+
+h1{
+  font-family: $h1FontFamily;
+  font-size: $h1FontSize;
+  line-height: $h1LineHeight;
+  color: $h1Color;
+}
+
+h2{
+  font-family: $h2FontFamily;
+  font-size: $h2FontSize;
+  line-height: $h2LineHeight;
+  color: $h2Color;
+}
+
+h3{
+  font-family: $h3FontFamily;
+  font-size: $h3FontSize;
+  line-height: $h3LineHeight;
+  color: $h3Color;
+}
+
+p{
+  font-family: $pFontFamily;
+  font-size: $pFontSize;
+  line-height: $pLineHeight;
+  color: $pColor;
+}
+
+footer p{
+  font-family: $pFooterFontFamily;
+  font-size: $pFooterFontSize;
+  line-height: $pFooterLineHeight;
+  color: $pFooterColor;
+}
+
+a{
+  font-family: $linkFontFamily;
+  font-size: $linkFontSize;
+  line-height: $linkLineHeight;
+  color: $linkColor;
+  &:hover{
+      color: $linkHoverColor;
+  }
+}
+
+button{
+  &.greenButton{
+      background-color: $normalGreenButton;
+      &:hover{
+        background-color: $hoverGreenButton;
+      }
+      &:active{
+        background-color: $clickGreenButton;
+      }
+  }
+  &.blueButton{
+    background-color: $normalBlueButton;
+    &:hover{
+      background-color: $hoverBlueButton;
+    }
+    &:active{
+      background-color: $clickBlueButton;
+    }
+  }
+}
+
+.horizontalFlow{
+  display: flex;
+}
+
+.verticalFlow{
+  display: grid;
+}
+
+.container{
+  margin-left: auto;
+  margin-right: auto;
+}
+

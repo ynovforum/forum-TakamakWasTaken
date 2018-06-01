@@ -1,14 +1,25 @@
 html
     head
         title Faux rhum
-        link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Poppins:300,700")
-        link(rel="stylesheet", href="/css/modern-normalize.css")
-        link(rel="stylesheet", href="/css/styles.css")
+        link(rel="stylesheet", href="/css/style.css")
     body
         block header
             header
-                h1
-                    a(href="/forum") FORUM
+                nav.navBar
+                    ul.horizontalFlow
+                        li
+                            a(href="/forum").logoHomePage
+                                div
+                        if loggedInUser
+                            li
+                                a(href="/forum/profile/" + loggedInUser.id) Profil
+                            if loggedInUser.role === "ADMIN"
+                                li
+                                    a(href="/forum/admin/users") Liste des utilisateurs
+                        li
+                            a(href="/forum/deconnexion") Déconnexion
+
+
         main
             block main
         block footer
@@ -16,13 +27,6 @@ html
                 nav
                     ul
                         if loggedInUser
-                            if loggedInUser.role === "ADMIN"
-                                li
-                                    a(href="/forum/admin/users") Liste des utilisateurs
-                            li
-                                a(href="/forum/deconnexion") Déconnexion
-                            li
-                                a(href="/forum/profile/" + loggedInUser.id) Votre profile
                         else
                             li
                                 a(href="/forum/connexion") Connexion

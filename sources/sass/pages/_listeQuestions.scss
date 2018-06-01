@@ -1,0 +1,130 @@
+@import '../styleguide';
+
+.containerHome{
+  width:60%;
+}
+
+.addQuestionBlock{
+  margin:1em 0;
+  a{
+    text-decoration: none;
+    color: white;
+    display: block;
+    border-radius:5px;
+    width: fit-content;
+    margin-left:auto;
+    padding: $paddingButtons;
+    background-color: $normalBlueButton;
+  }
+}
+
+.listTitle{
+  width:96%;
+  text-align: left;
+  background-color: white;
+  padding-left:4%;
+  border: 1px solid $miniBorderColor;
+  border-radius: 5px 5px 0 0;
+  span{
+    margin-top:auto;
+    margin-bottom: auto;
+    margin-left:10px;
+    color: #b2bcc8;
+  }
+}
+
+.listQuestions{
+  background-color: white;
+  border: solid $miniBorderColor;
+  border-width: 0 1px;
+  width:100%;
+  & .legend{
+    display: flex;
+    background-color: $bodyColor;
+    padding:10px 0 10px 4%;
+    span {
+      text-align: left;
+      color: $smallFontColor;
+      font-weight:bold;
+    }
+    & .firstSpan{
+      width: 50%;
+    }
+    & .secondSpan{
+      width: 15%;
+    }
+    & .thirdSpan{
+      width: 20%;
+    }
+    & .fourthSpan{
+      width: 15%;
+      text-align: center;
+    }
+  }
+}
+
+.listContent{
+   article{
+     display: flex;
+     padding-left:4%;
+     border: solid;
+     border-width: 1px 0 0;
+     border-color: $miniBorderColor;
+     border-collapse: collapse;
+
+     ul{
+       width:100%;
+       display: flex;
+       padding:0;
+       li {
+         text-align:left;
+       }
+       & .questionTitle{
+          width: 50%;
+         text-align:left;
+         font-weight:bold;
+         a{
+           text-decoration: none;
+           color: black;
+           display: block;
+           max-width:90%;
+         }
+       }
+       & .questionDate{
+          width: 15%;
+         height: fit-content;
+         margin: auto;
+       }
+       & .questionAuthor{
+         width: 20%;
+         a{
+           text-decoration: none;
+           color: black;
+         }
+       }
+       & .questionResolved{
+         width: 15%;
+         text-align: center;
+         height: fit-content;
+         margin: auto;
+         span{
+            color: white;
+            padding: $paddingButtons;
+            border-radius:5px;
+         }
+         & .resolved{
+            background-color: $normalGreenButton;
+         }
+         & .notResolved{
+            background-color: $normalBlueButton;
+         }
+       }
+     }
+   }
+   article:first-child{
+     border-top-width:0px;
+   }
+   article:last-of-type{
+     border-bottom-width:1px;
+   }
+ }

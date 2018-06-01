@@ -2,10 +2,20 @@ const router = require('express').Router();
 const passport = require('passport');
 const { Question, Comment, User } = require('../models');
 
+function prettyDate(question){
+
+    let date = new Date(question.createdAt);
+    question["prettyDate"] = date.getDate() + "/" + parseInt(date.getMonth()+1) + "/" + date.getFullYear();
+    return question;
+}
+
 router.get('/', (req, res) => {
     Question
         .findAll({ include: [User] })
         .then((questions) => {
+            for(let y=0; y<questions.length; y++){
+                questions[y] = prettyDate(questions[y]);
+            }
             res.render('site/home', { questions, loggedInUser: req.user });
         });
 });

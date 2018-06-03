@@ -26,10 +26,13 @@ block main
         div.questionsProfil.profil
             h1 Questions
 
-            for question in user.questions
-                div
-                    a(href="/forum/question/details/" + question.id) #{question.title}
-                    if question.resolvedAt
-                        span.resolved Résolue
-                    else
-                        span.notResolved Non résolue
+            if user.questions.length === 0
+                div Pas de question enregistré!
+            else
+                for question in user.questions
+                    div
+                        a(href="/forum/question/details/" + question.id) #{question.title}
+                        if question.resolvedAt
+                            span.resolved Résolue
+                        else
+                            span.notResolved Non résolue

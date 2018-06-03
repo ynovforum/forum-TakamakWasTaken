@@ -3,7 +3,6 @@
 .addQuestionBlock{
   margin-bottom:1em;
   a{
-    text-decoration: none;
     color: white;
     display: block;
     border-radius:5px;
@@ -11,6 +10,12 @@
     margin-left:auto;
     padding: $paddingButtons;
     background-color: $normalBlueButton;
+    &:hover{
+      background-color: $hoverBlueButton;
+    }
+    &:active{
+      background-color: $clickBlueButton;
+    }
   }
 }
 
@@ -90,7 +95,6 @@
          text-align:left;
          font-weight:bold;
          a{
-           text-decoration: none;
            color: black;
            display: block;
            max-width:90%;
@@ -104,7 +108,6 @@
        & .questionAuthor{
          width: 20%;
          a{
-           text-decoration: none;
            color: black;
          }
        }

@@ -1,0 +1,70 @@
+.legendUsers{
+  display: flex;
+  background-color: $bodyColor;
+  padding:10px 0 10px 4%;
+  span {
+    text-align: left;
+    color: $smallFontColor;
+    font-weight:bold;
+  }
+  & .firstSpan{
+    width: 50%;
+  }
+  & .secondSpan{
+    width: 20%;
+  }
+  & .thirdSpan{
+    width: 15%;
+  }
+}
+
+.listUsers{
+
+  article{
+    background-color: white;
+    border:1px solid $miniBorderColor;
+    border-radius:5px;
+    margin-bottom: 1em;
+
+    ul{
+      li{
+        height: fit-content;
+        margin-top: auto;
+        margin-bottom: auto;
+        width:25%;
+        text-align: left;
+        font-weight: 700;
+      }
+      & .nomUser{
+        width:50%;
+        a{
+          color: #000;
+        }
+      }
+      & .roleUser{
+        width:20%;
+        p{
+          color: #000;
+        }
+      }
+      & .dateUser{
+        width:15%;
+      }
+      & .editUserButton{
+        width: 15%;
+        a{
+          border-radius:5px;
+          color: white;
+          padding: $paddingButtons;
+          background-color: $normalBlueButton;
+          &:hover{
+            background-color: $hoverBlueButton;
+          }
+          &:active{
+            background-color: $clickBlueButton;
+          }
+        }
+      }
+    }
+  }
+}

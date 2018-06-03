@@ -8,7 +8,7 @@ router.get('/users', (req, res) => {
         .findAll()
         .then((users) => {
             for(let i=0; i< users.length; i++){
-                users[i]["prettyDate"] = prettyDate(users[i]);
+                users[i] = prettyDate(users[i]);
             }
             res.render('admin/users/users', { users, loggedInUser: req.user });
         });

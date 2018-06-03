@@ -1,16 +1,25 @@
 extends ../../layout
 block main
     div.container
+        div.listTitle.horizontalFlow
+            h2 Tous les Utilisateurs
+            span | #{users.length} Utilisateurs
+        div.legendUsers
+            span.firstSpan Nom
+            span.secondSpan Rôle
+            span.thirdSpan Créé le
         div.listUsers
-            if users.length === 0
-                p Pas d'utilisateurs!
-            else
-                for user in users
-                    article
-                        ul.horizontalFlow
-                            li
-                                a(href="/forum/profile/" + user.id) #{user.name}
-                            li
-                                p #{user.role}
-                            li Créé le #{user.prettyDate}
-                            a(href="/forum/admin/users/edit/" + user.id) Éditer
+            for user in users
+                article
+                    ul.horizontalFlow
+                        li.nomUser
+                            a(href="/forum/profile/" + user.id) #{user.name}
+                        li.roleUser
+                            if user.role === "ADMIN"
+                                p Administrateur
+                            else
+                                p Utilisateur
+                        li.dateUser #{user.prettyDate}
+                        li.editUserButton
+                            if user.id !== loggedInUser.id
+                                a(href="/forum/admin/users/edit/" + user.id) Éditer le rôle

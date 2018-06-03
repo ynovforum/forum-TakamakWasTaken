@@ -1,13 +1,33 @@
 extends ../layout
 block main
-    form(method="post")
-        label(for="name") Nom
-        input(id="name", name="name", type="text", placeholder="John Doe")
-        label(for="email") Email
-        input(id="email", name="email", type="email", placeholder="john.doe@gmail.com")
-        label(for="password") Password
-        input(id="password", name="password", type="password", placeholder="******")
-        label(for="bio") Biographie
-        textarea(id="bio", name="bio", placeholder="Qui êtes-vous?")
-        button(type="submit") Sign up
+    div.container.containerConnexion
+        div.connexionBlock
+            div.iconPaperFly
+                img(src="localhost:3000/img/avionPapier.png")
+            h2 Bienvenu nouvel utilisateur!
+            div.connectionForm
+                form(method="post").verticalFlow
+                    label(for="name") Nom
+                    input(id="name", name="name", type="text", placeholder="John Doe")
+                    label(for="email") Email
+                    input(id="email", name="email", type="email", placeholder="john.doe@gmail.com")
+                    label(for="password") Password
+                    input(id="password", name="password", type="password", placeholder="******")
+                    label(for="bio") Biographie
+                    textarea(id="bio", name="bio", placeholder="Qui êtes-vous?")
+                    button(type="submit").greenButton Envoyer
+                div.socialNetworks.verticalFlow
+                    span Inscription via social networks
+                    div.horizontalFlow
+                        div.logoNetwork
+                            img(src="localhost:3000/img/logoTwitter.png")
+                        div.logoNetwork
+                            img(src="localhost:3000/img/Facebook.png")
+                        div.logoNetwork
+                            img(src="localhost:3000/img/Pinterest.png")
+                        div.logoNetwork
+                            img(src="localhost:3000/img/Dribbble.png")
+        div.footerConnexion
+            a(href="/forum/inscription") Don't have an account yet? Get Started
+            a(href="/forum/connexion").forgotPass Forgot Password?
 block footer

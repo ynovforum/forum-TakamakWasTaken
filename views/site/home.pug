@@ -3,9 +3,9 @@ block main
     div.container
         div.addQuestionBlock
             if loggedInUser
-                a(href="/forum/question/creer") Ajouter  une question
+                a(href="/forum/question/creer").linkAsBlueButton Ajouter  une question
             else
-                a(href="/forum/connexion") Connectez-vous pour poster une question!
+                a(href="/forum/connexion").linkAsBlueButton Connectez-vous pour poster une question!
         div.listTitle.horizontalFlow
             h2 Toutes les Questions
             span | #{questions.length} Questions

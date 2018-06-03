@@ -18,7 +18,7 @@
   ul{
     padding-left: 0;
     li button{
-      margin-left: 2em;
+      float: right;
     }
     & li .name, & li .email, & li .password{
       width:50%;
@@ -64,6 +64,7 @@
     }
     span{
       float:right;
+      transform: translateY(-20%);
     }
     &:last-of-type{
       border-bottom:1px solid $miniBorderColor;

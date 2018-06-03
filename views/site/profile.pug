@@ -19,15 +19,16 @@ block main
                     input(type="password" value=user.password).infoProfil.password
                     button.formButton.greenButton change
                 li
+                    p.legend Role
                     if user.role === "ADMIN"
-                        p.roleProfil  Role : Admin
+                        input(type="text" value="Administrateur").infoProfil
                     else
-                        p.roleProfil  Role : Utilisateur
+                        input(type="text" value="Utilisateur").infoProfil
         div.questionsProfil.profil
             h1 Questions
 
             if user.questions.length === 0
-                div Pas de question enregistré!
+                div Pas de question enregistrée!
             else
                 for question in user.questions
                     div

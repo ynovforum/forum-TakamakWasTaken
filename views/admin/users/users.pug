@@ -22,4 +22,4 @@ block main
                         li.dateUser #{user.prettyDate}
                         li.editUserButton
                             if user.id !== loggedInUser.id
-                                a(href="/forum/admin/users/edit/" + user.id) Éditer le rôle
+                                a(href="/forum/admin/users/edit/" + user.id).linkAsBlueButton Éditer le rôle

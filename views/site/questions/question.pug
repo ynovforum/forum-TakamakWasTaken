@@ -18,10 +18,10 @@ block main
                         div.detailsFonctionsAdmin
                             if loggedInUser
                                 if loggedInUser.role === "ADMIN"
-                                    a(href="/forum/question/edit/" + question.id) Éditer
-                                    a(href="/forum/admin/question/delete/" + question.id) Supprimer
+                                    a(href="/forum/question/edit/" + question.id).linkAsBlueButton Éditer
+                                    a(href="/forum/admin/question/delete/" + question.id).linkAsBlueButton Supprimer
                                 else if loggedInUser.id === question.user.id
-                                    a(href="/forum/question/edit/" + question.id) Éditer
+                                    a(href="/forum/question/edit/" + question.id).linkAsBlueButton Éditer
 
                                 if !question.resolvedAt
                                     a(href="/forum/question/resolve/" + question.id) Marquer comme résolue
@@ -39,10 +39,10 @@ block main
                                 p #{comment.content}
                             li.commentManagementLink
                                 if loggedInUser.role === "ADMIN"
-                                    a(href="/forum/question/" + question.id + "/comment/edit/" + comment.id) Éditer
-                                    a(href="/forum/admin/question/" + question.id + "/comment/delete/" + comment.id) Supprimer
+                                    a(href="/forum/question/" + question.id + "/comment/edit/" + comment.id).linkAsBlueButton Éditer
+                                    a(href="/forum/admin/question/" + question.id + "/comment/delete/" + comment.id).linkAsBlueButton Supprimer
                                 else if loggedInUser.id === comment.user.id
-                                    a(href="/forum/question/" + question.id + "/comment/edit/" + comment.id) Éditer
+                                    a(href="/forum/question/" + question.id + "/comment/edit/" + comment.id).linkAsBlueButton Éditer
                 div.commentAnswer
                     form(method="post").verticalFlow
                         label(for="content") Postez un commentaire

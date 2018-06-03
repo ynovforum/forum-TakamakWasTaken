@@ -3,19 +3,9 @@
 .addQuestionBlock{
   margin-bottom:1em;
   a{
-    color: white;
     display: block;
-    border-radius:5px;
     width: fit-content;
     margin-left:auto;
-    padding: $paddingButtons;
-    background-color: $normalBlueButton;
-    &:hover{
-      background-color: $hoverBlueButton;
-    }
-    &:active{
-      background-color: $clickBlueButton;
-    }
   }
 }
 

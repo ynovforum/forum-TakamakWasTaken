@@ -1,8 +1,10 @@
 extends ../../layout
 block main
-    form(method="post")
-        label(for="title") Titre
-        input(id="title", name="title", type="text", value=question.title)
-        label(for="description") Description
-        textarea(id="description", name="description") #{question.description}
-        button(type="submit") Editer!
+    div.container
+        h2.titleLeft Éditez votre Question!
+        form(method="post").verticalFlow.formLayout
+            label(for="title").legend Titre
+            input(id="title", name="title", type="text", value=question.title)
+            label(for="description").legend Description
+            textarea(id="description", name="description") #{question.description}
+            button(type="submit").formButton.greenButton Editer

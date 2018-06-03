@@ -115,6 +115,7 @@ router.get('/question/details/:questionId', (req, res) => {
 router.post('/question/details/:questionId', (req, res) => {
     const { content } = req.body;
     if(content.length < 1){
+        res.redirect("/forum/question/details/" + req.params.questionId);
     }
     else{
         Comment

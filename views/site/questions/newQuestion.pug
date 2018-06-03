@@ -1,8 +1,8 @@
 extends ../../layout
 block main
     div.container
-        h1.addQUestionTitle Posez votre Question!
-        form(method="post").verticalFlow.addQuestionForm
+        h1.titleLeft Posez votre Question!
+        form(method="post").verticalFlow.formLayout
             label(for="title") Question
             input(id="title", name="title", type="text", placeholder="Breaking news in the IT world")
             label(for="description") Description

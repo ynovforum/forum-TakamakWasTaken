@@ -52,18 +52,6 @@
       }
       & .editUserButton{
         width: 15%;
-        a{
-          border-radius:5px;
-          color: white;
-          padding: $paddingButtons;
-          background-color: $normalBlueButton;
-          &:hover{
-            background-color: $hoverBlueButton;
-          }
-          &:active{
-            background-color: $clickBlueButton;
-          }
-        }
       }
     }
   }
